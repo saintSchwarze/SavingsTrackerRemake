@@ -156,7 +156,8 @@ class HomeScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             final goal = goals[index];
             final progress = goal.currentAmount / goal.targetAmount;
-            
+            final isCompleted = progress >= 1.0;
+
             return Card(
               child: ListTile(
                 title: Text(goal.name),
@@ -167,6 +168,15 @@ class HomeScreen extends StatelessWidget {
                     LinearProgressIndicator(value: progress),
                   ],
                 ),
+                trailing: isCompleted
+                    ? IconButton(
+                        icon: const Icon(Icons.check_circle, color: Colors.green),
+                        onPressed: () {
+                          Provider.of<SavingsProvider>(context, listen: false)
+                              .removeGoal(goal);
+                        },
+                      )
+                    : null,
               ),
             );
           },
@@ -185,4 +195,4 @@ class HomeScreen extends StatelessWidget {
       return total;
     });
   }
-} 
+}

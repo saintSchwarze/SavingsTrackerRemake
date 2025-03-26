@@ -7,6 +7,11 @@ class SavingsProvider extends ChangeNotifier {
   late Box<Transaction> _transactionsBox;
   late Box<SavingsGoal> _goalsBox;
 
+  void removeGoal(SavingsGoal goal) {
+    _goalsBox.delete(goal.id);
+    notifyListeners();
+  }
+
   List<Transaction> get transactions => _transactionsBox.values.toList();
   List<SavingsGoal> get goals => _goalsBox.values.toList();
 
